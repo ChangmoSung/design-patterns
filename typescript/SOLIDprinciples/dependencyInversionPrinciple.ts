@@ -3,6 +3,7 @@
 // Should depend on interfaces instead of concrete implementation
 
 // High-level modules should not depend on low-level modules.
+// Basically it means high level modules should do the same thing no matter what low level modules they're dealing with.
 // Both should depend on abstractions.
 
 // Abstractions should not depend on details.
@@ -26,7 +27,7 @@ class MongoDbDatabase implements IDatabase {
   }
 }
 
-class HighLevelModule {
+class App {
   constructor(private database: IDatabase) {}
 
   execute(data: string) {
@@ -37,8 +38,8 @@ class HighLevelModule {
 const mysql: MySqlDatabase = new MySqlDatabase();
 const mongo: MongoDbDatabase = new MongoDbDatabase();
 
-const user: HighLevelModule = new HighLevelModule(mysql);
+const user: App = new App(mysql);
 user.execute("Hello");
 
-const post: HighLevelModule = new HighLevelModule(mongo);
+const post: App = new App(mongo);
 post.execute("Post");
